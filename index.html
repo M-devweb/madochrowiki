@@ -1,1 +1,72 @@
-<!DOCTYPE html><html lang="fr"><head>    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>MadochroWiki</title>    <link rel="stylesheet" href="css/style.css"></head><body>    <!-- Overlay mobile -->    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>    <!-- Sidebar -->    <aside class="sidebar" id="sidebar">        <div class="sidebar-logo">            <div class="logo-icon">??</div>            <div class="logo-text">MadochroWiki</div>        </div>        <ul class="sidebar-nav" id="sidebarNav">            <li data-page="home" class="active">                <a onclick="navigateTo('home')"><span class="nav-icon">??</span> <span data-i18n="nav_home">Accueil</span></a>            </li>            <li data-page="characters">                <a onclick="navigateTo('characters')"><span class="nav-icon">??</span> <span data-i18n="nav_characters">Tous les personnages</span></a>            </li>            <li data-page="lacrimas">                <a onclick="navigateTo('lacrimas')"><span class="nav-icon">??</span> <span data-i18n="nav_lacrimas">Toutes les lacrimas</span></a>            </li>            <li data-page="familiers">                <a onclick="navigateTo('familiers')"><span class="nav-icon">??</span> <span data-i18n="nav_familiers">Tous les Familiers</span></a>            </li>            <li data-page="story">                <a onclick="navigateTo('story')"><span class="nav-icon">??</span> <span data-i18n="nav_story">Story Helper</span></a>            </li>            <li data-page="trial">                <a onclick="navigateTo('trial')"><span class="nav-icon">??</span> <span data-i18n="nav_trial">Trial Helper</span></a>            </li>            <li data-page="setup">                <a onclick="navigateTo('setup')"><span class="nav-icon">???</span> <span data-i18n="nav_setup">Setup Your Team</span></a>            </li>        </ul>        <div class="sidebar-footer">v1.4 · MadochroWiki</div>    </aside>    <!-- Contenu principal -->    <div class="main-content" id="mainContent">        <header class="top-header">            <div style="display:flex;align-items:center;gap:12px;">                <button class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="Menu">?</button>                <span class="page-title" id="pageTitle" data-i18n="page_home">Accueil</span>                <span class="admin-badge" id="adminBadge" style="display:none;">ADMIN</span>            </div>            <div class="lang-selector">                <button class="lang-btn" data-lang="fr" onclick="setLanguage('fr')" id="langBtnFr">???? FR</button>                <button class="lang-btn" data-lang="en" onclick="setLanguage('en')" id="langBtnEn">???? EN</button>                <button class="lang-btn" data-lang="jp" onclick="setLanguage('jp')" id="langBtnJp">???? JP</button>            </div>        </header>        <div class="content-area" id="contentArea">            <!-- Rendu dynamique -->        </div>    </div>    <!-- Modales -->    <div id="modalContainer"></div>    <!-- Notifications -->    <div class="toast-container" id="toastContainer"></div>    <script src="js/script.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MadochroWiki</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Overlay mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <div class="logo-icon">📚</div>
+            <div class="logo-text">MadochroWiki</div>
+        </div>
+        <ul class="sidebar-nav" id="sidebarNav">
+            <li data-page="home" class="active">
+                <a onclick="navigateTo('home')"><span class="nav-icon">🏠</span> <span data-i18n="nav_home">Accueil</span></a>
+            </li>
+            <li data-page="characters">
+                <a onclick="navigateTo('characters')"><span class="nav-icon">👤</span> <span data-i18n="nav_characters">Tous les personnages</span></a>
+            </li>
+            <li data-page="lacrimas">
+                <a onclick="navigateTo('lacrimas')"><span class="nav-icon">💎</span> <span data-i18n="nav_lacrimas">Toutes les lacrimas</span></a>
+            </li>
+            <li data-page="familiers">
+                <a onclick="navigateTo('familiers')"><span class="nav-icon">🐾</span> <span data-i18n="nav_familiers">Tous les Familiers</span></a>
+            </li>
+            <li data-page="story">
+                <a onclick="navigateTo('story')"><span class="nav-icon">📜</span> <span data-i18n="nav_story">Story Helper</span></a>
+            </li>
+            <li data-page="trial">
+                <a onclick="navigateTo('trial')"><span class="nav-icon">⚔️</span> <span data-i18n="nav_trial">Trial Helper</span></a>
+            </li>
+            <li data-page="setup">
+                <a onclick="navigateTo('setup')"><span class="nav-icon">🛡️</span> <span data-i18n="nav_setup">Setup Your Team</span></a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">v1.4 © MadochroWiki</div>
+    </aside>
+
+    <!-- Contenu principal -->
+    <div class="main-content" id="mainContent">
+        <header class="top-header">
+            <div style="display:flex;align-items:center;gap:12px;">
+                <button class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+                <span class="page-title" id="pageTitle" data-i18n="page_home">Accueil</span>
+                <span class="admin-badge" id="adminBadge" style="display:none;">ADMIN</span>
+            </div>
+            <div class="lang-selector">
+                <button class="lang-btn" data-lang="fr" onclick="setLanguage('fr')" id="langBtnFr">🇫🇷 FR</button>
+                <button class="lang-btn" data-lang="en" onclick="setLanguage('en')" id="langBtnEn">🇬🇧 EN</button>
+                <button class="lang-btn" data-lang="jp" onclick="setLanguage('jp')" id="langBtnJp">🇯🇵 JP</button>
+            </div>
+        </header>
+
+        <div class="content-area" id="contentArea">
+            <!-- Rendu dynamique -->
+        </div>
+    </div>
+
+    <!-- Modales -->
+    <div id="modalContainer"></div>
+    <!-- Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
