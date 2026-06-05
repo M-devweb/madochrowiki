@@ -304,7 +304,7 @@ function renderCharactersPage() {
         const rarityClass = getRarityClass(c.rarity);
         cards += `<div class="char-card" onclick="showCharacterProfile('${c.id}')">
             <div class="card-img">
-                ${c.photo ? `<img src="${escapeHtml(c.photo)}" alt="${escapeHtml(c.name)}">` : '<span class="placeholder-icon">\uD83D\uDC64</span>'}
+                ${c.photo ? `<img src="${c.photo}" alt="${escapeHtml(c.name)}">` : '<span class="placeholder-icon">\uD83D\uDC64</span>'}
                 <span class="rarity-badge-top ${rarityClass}-top">${escapeHtml(c.rarity)}</span>
             </div>
             <div class="card-body">
@@ -338,7 +338,7 @@ function renderFamiliersPage() {
         const rarityClass = getRarityClass(f.rarity);
         cards += `<div class="char-card familiar-card" onclick="showFamiliarInfo('${f.id}')">
             <div class="card-img">
-                ${f.photo ? `<img src="${escapeHtml(f.photo)}" alt="${escapeHtml(f.name)}">` : '<span class="placeholder-icon">\uD83D\uDC3E</span>'}
+                ${f.photo ? `<img src="${f.photo}" alt="${escapeHtml(f.name)}">` : '<span class="placeholder-icon">\uD83D\uDC3E</span>'}
                 <span class="rarity-badge-top ${rarityClass}-top">${escapeHtml(f.rarity)}</span>
             </div>
             <div class="card-body">
@@ -357,14 +357,14 @@ function renderSetupPage() {
     for (let i = 0; i < 9; i++) {
         const cId = team.characters[i];
         const char = characters.find(c => c.id === cId);
-        charSlots += `<div class="team-slot" onclick="openCharacterSelector(${i})">${char ? `<img src="${escapeHtml(char.photo)}" alt="${escapeHtml(char.name)}"><button class="remove-slot" onclick="event.stopPropagation(); removeCharacterFromSlot(${i})">✕</button>` : '<span class="slot-placeholder">+</span>'}</div>`;
+        charSlots += `<div class="team-slot" onclick="openCharacterSelector(${i})">${char ? `<img src="${char.photo)}" alt="${escapeHtml(char.name)}"><button class="remove-slot" onclick="event.stopPropagation(); removeCharacterFromSlot(${i})">✕</button>` : '<span class="slot-placeholder">+</span>'}</div>`;
     }
     const famKeys = ['extalia', 'celestial_spirit', 'dragon'];
     let famSlots = '';
     famKeys.forEach(key => {
         const famId = team.familiers[key];
         const fam = familiers.find(f => f.id === famId);
-        famSlots += `<div class="team-slot" onclick="openFamiliarSelector('${key}')">${fam ? `<img src="${escapeHtml(fam.photo)}" alt="${escapeHtml(fam.name)}"><button class="remove-slot" onclick="event.stopPropagation(); removeFamiliarFromSlot('${key}')">✕</button>` : '<span class="slot-placeholder">+</span>'}</div>`;
+        famSlots += `<div class="team-slot" onclick="openFamiliarSelector('${key}')">${fam ? `<img src="${fam.photo)}" alt="${escapeHtml(fam.name)}"><button class="remove-slot" onclick="event.stopPropagation(); removeFamiliarFromSlot('${key}')">✕</button>` : '<span class="slot-placeholder">+</span>'}</div>`;
     });
     return `<div class="section-header"><h2>${t('page_setup')}</h2></div><div class="team-setup"><div><h3>Personnages</h3><div class="team-characters">${charSlots}</div></div><div><h3>Familiers</h3><div class="team-familiers">${famSlots}</div></div></div>`;
 }
@@ -386,7 +386,7 @@ function showCharacterProfile(charId) {
     const lacName = c.lacrima || `Lacrima de ${c.name}`;
     const lacEffect = c.lacrima_effect || '-';
     openModal(`<div class="profile-modal">
-        <div class="profile-img">${c.photo ? `<img src="${escapeHtml(c.photo)}">` : '<span>\uD83D\uDC64</span>'}</div>
+        <div class="profile-img">${c.photo ? `<img src="${c.photo)}">` : '<span>\uD83D\uDC64</span>'}</div>
         <div class="profile-name">${escapeHtml(c.name)}</div>
         <div class="profile-attr">
             <span class="attr-badge ${attrClass}">${attributeEmoji(c.attribute)} ${escapeHtml(translateAttribute(c.attribute))}</span>
@@ -416,17 +416,17 @@ function showFamiliarInfo(famId) {
     if (!f) return;
     const catClass = getCategoryClass(f.category);
     const rarityClass = getRarityClass(f.rarity);
-    openModal(`<div class="profile-modal"><div class="profile-img">${f.photo ? `<img src="${escapeHtml(f.photo)}">` : '<span>\uD83D\uDC3E</span>'}</div><div class="profile-name">${escapeHtml(f.name)}</div><div class="profile-attr"><span class="category-badge ${catClass}">${categoryEmoji(f.category)} ${t('category_'+f.category)}</span><span class="rarity-badge-top ${rarityClass}-top" style="position:static;width:auto;height:auto;border-radius:20px;padding:3px 10px;">${escapeHtml(f.rarity)}</span></div><div class="profile-details"><div class="detail-row"><span class="detail-label">✨ ${t('label_effect')}</span><span class="detail-value">${parseColorTags(escapeHtml(f.effect))}</span></div></div><button class="btn btn-cancel" onclick="closeModal()">${t('btn_close')}</button></div>`);
+    openModal(`<div class="profile-modal"><div class="profile-img">${f.photo ? `<img src="${f.photo)}">` : '<span>\uD83D\uDC3E</span>'}</div><div class="profile-name">${escapeHtml(f.name)}</div><div class="profile-attr"><span class="category-badge ${catClass}">${categoryEmoji(f.category)} ${t('category_'+f.category)}</span><span class="rarity-badge-top ${rarityClass}-top" style="position:static;width:auto;height:auto;border-radius:20px;padding:3px 10px;">${escapeHtml(f.rarity)}</span></div><div class="profile-details"><div class="detail-row"><span class="detail-label">✨ ${t('label_effect')}</span><span class="detail-value">${parseColorTags(escapeHtml(f.effect))}</span></div></div><button class="btn btn-cancel" onclick="closeModal()">${t('btn_close')}</button></div>`);
 }
 
 // Sélection d'équipe
 function openCharacterSelector(slotIndex) {
-    const list = characters.map(c => `<div class="char-card" style="margin:5px;padding:10px;cursor:pointer;" onclick="assignCharacterToSlot(${slotIndex},'${c.id}')"><div class="card-img" style="height:80px;">${c.photo?`<img src="${escapeHtml(c.photo)}">`:'\uD83D\uDC64'}</div><div class="card-name">${escapeHtml(c.name)}</div></div>`).join('');
+    const list = characters.map(c => `<div class="char-card" style="margin:5px;padding:10px;cursor:pointer;" onclick="assignCharacterToSlot(${slotIndex},'${c.id}')"><div class="card-img" style="height:80px;">${c.photo?`<img src="${c.photo)}">`:'\uD83D\uDC64'}</div><div class="card-name">${escapeHtml(c.name)}</div></div>`).join('');
     openModal(`<h3>${t('select_character')}</h3><div style="max-height:300px;overflow-y:auto;display:flex;flex-wrap:wrap;">${list}</div>`);
 }
 function openFamiliarSelector(categoryKey) {
     const fams = familiers.filter(f => f.category === categoryKey);
-    const list = fams.map(f => `<div class="char-card" style="margin:5px;padding:10px;cursor:pointer;" onclick="assignFamiliarToSlot('${categoryKey}','${f.id}')"><div class="card-img" style="height:80px;">${f.photo?`<img src="${escapeHtml(f.photo)}">`:'\uD83D\uDC3E'}</div><div class="card-name">${escapeHtml(f.name)}</div></div>`).join('');
+    const list = fams.map(f => `<div class="char-card" style="margin:5px;padding:10px;cursor:pointer;" onclick="assignFamiliarToSlot('${categoryKey}','${f.id}')"><div class="card-img" style="height:80px;">${f.photo?`<img src="${f.photo)}">`:'\uD83D\uDC3E'}</div><div class="card-name">${escapeHtml(f.name)}</div></div>`).join('');
     openModal(`<h3>${t('select_familiar')} (${t('category_'+categoryKey)})</h3><div style="max-height:300px;overflow-y:auto;display:flex;flex-wrap:wrap;">${list}</div>`);
 }
 function assignCharacterToSlot(index, charId) { team.characters[index] = charId; saveTeam(); closeModal(); renderPage(); }
