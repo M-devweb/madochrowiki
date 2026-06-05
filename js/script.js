@@ -20,15 +20,15 @@ const RARITIES = ['UR', 'SR', 'R', 'N'];
 const FAMILIAR_RARITIES = ['UR', 'SR'];
 const FAMILIAR_CATEGORIES = ['extalia', 'celestial_spirit', 'dragon'];
 
-// Émojis en Unicode échappé (compatibilité GitHub Pages)
+// Émojis directs
 function attributeEmoji(attr) {
     const map = {
-        brave: '\uD83D\uDD34',        // 🔴
-        mind: '\uD83D\uDFE1',         // 🟡
-        skill: '\uD83D\uDFE2',        // 🟢
-        intelligence: '\uD83D\uDD35'  // 🔵
+        brave: '🔴',
+        mind: '🟡',
+        skill: '🟢',
+        intelligence: '🔵'
     };
-    return map[attr] || '\u26AA';     // ⚪
+    return map[attr] || '⚪';
 }
 function getAttrClass(attr) {
     const map = { brave: 'attr-brave', mind: 'attr-mind', skill: 'attr-skill', intelligence: 'attr-intelligence' };
@@ -37,20 +37,20 @@ function getAttrClass(attr) {
 function typeEmoji(type) {
     const t = (type || '').toLowerCase();
     const map = {
-        melee: '\uD83D\uDC4A',            // 👊
-        ranged: '\uD83C\uDFF9',           // 🏹
-        defense: '\uD83D\uDEE1\uFE0F',    // 🛡️
-        heal: '\u2764\uFE0F',             // ❤️
-        disrup: '\uD83E\uDE84'            // 🪄
+        melee: '👊',
+        ranged: '🏹',
+        defense: '🛡️',
+        heal: '❤️',
+        disrup: '🪄'
     };
     return map[t] || '';
 }
 function getTypeClass(type) { return 'type-' + (type || 'melee').toLowerCase(); }
 function categoryEmoji(cat) {
     const map = {
-        extalia: '\uD83D\uDC31',           // 🐱
-        celestial_spirit: '\uD83D\uDD2E',  // 🔮
-        dragon: '\uD83D\uDC09'             // 🐉
+        extalia: '🐱',
+        celestial_spirit: '🔮',
+        dragon: '🐉'
     };
     return map[cat] || '';
 }
@@ -208,8 +208,8 @@ async function loadData() {
 
 function getDefaultCharacters() {
     return [
-        { id: 'char_1', name: 'Akira Hayashi', attribute: 'brave', type: 'melee', rarity: 'UR', photo: '', spell1: '[color=red]Boule de Feu[/color]', spell2: 'Muraille Incandescente', spell3: '[color=orange]Colère du Dragon[/color]', lacrima: 'Lacrima de Flamme', lacrima_effect: 'Augmente la puissance de feu de 25%' },
-        { id: 'char_2', name: 'Yuki Mizuhara', attribute: 'intelligence', type: 'ranged', rarity: 'SR', photo: '', spell1: '[color=blue]Vague Tourbillonnante[/color]', spell2: 'Pluie de Glace', spell3: 'Étreinte Abyssale', lacrima: 'Lacrima de Marée', lacrima_effect: 'Régénération de PV pendant 3 tours' }
+        { id: 'char_1', name: 'Akira Hayashi', attribute: 'brave', type: 'melee', rarity: 'UR', photo: '', spell1: '[color=red]Boule de Feu[/color]', spell2: 'Muraille Incandescente', spell3: '[color=red]Explosion Volcanique[/color]', lacrima: 'Lacrima de Feu', lacrima_effect: 'Augmente l\'ATK' },
+        { id: 'char_2', name: 'Yuki Mizuhara', attribute: 'intelligence', type: 'ranged', rarity: 'SR', photo: '', spell1: '[color=blue]Vague Tourbillonnante[/color]', spell2: 'Pluie de Glace', spell3: '[color=blue]Tempête Gelée[/color]', lacrima: 'Lacrima de Glace', lacrima_effect: 'Réduit l\'ATK ennemi' }
     ];
 }
 function getDefaultFamiliers() {
@@ -304,7 +304,7 @@ function renderCharactersPage() {
         const rarityClass = getRarityClass(c.rarity);
         cards += `<div class="char-card" onclick="showCharacterProfile('${c.id}')">
             <div class="card-img">
-                ${c.photo ? `<img src="${c.photo}" alt="${escapeHtml(c.name)}">` : '<span class="placeholder-icon">\uD83D\uDC64</span>'}
+                ${c.photo ? `<img src="${c.photo}" alt="${escapeHtml(c.name)}">` : '<span class="placeholder-icon">👤</span>'}
                 <span class="rarity-badge-top ${rarityClass}-top">${escapeHtml(c.rarity)}</span>
             </div>
             <div class="card-body">
@@ -324,7 +324,7 @@ function renderLacrimasPage() {
     let cards = '';
     characters.forEach(c => {
         const lacName = c.lacrima || `Lacrima de ${c.name}`;
-        cards += `<div class="char-card" onclick="showLacrimaInfo('${c.id}')"><div class="card-img" style="background:#1a1a35;"><span style="font-size:4rem;">\uD83D\uDC8E</span></div><div class="card-body"><div class="card-name">${parseColorTags(escapeHtml(lacName))}</div><div class="card-attr"><span class="attr-badge attr-default">${escapeHtml(c.name)}</span></div></div></div>`;
+        cards += `<div class="char-card" onclick="showLacrimaInfo('${c.id}')"><div class="card-img" style="background:#1a1a35;"><span style="font-size:4rem;">💎</span></div><div class="card-body"><div class="card-name">${escapeHtml(lacName)}</div></div></div>`;
     });
     return `<div class="section-header"><h2>${t('page_lacrimas')}</h2><span class="char-count">${characters.length} ${t('lac_count')}</span></div><div class="char-grid">${cards}</div>`;
 }
@@ -338,7 +338,7 @@ function renderFamiliersPage() {
         const rarityClass = getRarityClass(f.rarity);
         cards += `<div class="char-card familiar-card" onclick="showFamiliarInfo('${f.id}')">
             <div class="card-img">
-                ${f.photo ? `<img src="${f.photo}" alt="${escapeHtml(f.name)}">` : '<span class="placeholder-icon">\uD83D\uDC3E</span>'}
+                ${f.photo ? `<img src="${f.photo}" alt="${escapeHtml(f.name)}">` : '<span class="placeholder-icon">🐾</span>'}
                 <span class="rarity-badge-top ${rarityClass}-top">${escapeHtml(f.rarity)}</span>
             </div>
             <div class="card-body">
@@ -357,14 +357,14 @@ function renderSetupPage() {
     for (let i = 0; i < 9; i++) {
         const cId = team.characters[i];
         const char = characters.find(c => c.id === cId);
-        charSlots += `<div class="team-slot" onclick="openCharacterSelector(${i})">${char ? `<img src="${char.photo)}" alt="${escapeHtml(char.name)}"><button class="remove-slot" onclick="event.stopPropagation(); removeCharacterFromSlot(${i})">✕</button>` : '<span class="slot-placeholder">+</span>'}</div>`;
+        charSlots += `<div class="team-slot" onclick="openCharacterSelector(${i})">${char ? `<img src="${char.photo}" alt="${escapeHtml(char.name)}"><button class="remove-slot" onclick="event.stopPropagation(); removeCharacterFromSlot(${i})">✕</button>` : '<span class="slot-placeholder">+</span>'}</div>`;
     }
     const famKeys = ['extalia', 'celestial_spirit', 'dragon'];
     let famSlots = '';
     famKeys.forEach(key => {
         const famId = team.familiers[key];
         const fam = familiers.find(f => f.id === famId);
-        famSlots += `<div class="team-slot" onclick="openFamiliarSelector('${key}')">${fam ? `<img src="${fam.photo)}" alt="${escapeHtml(fam.name)}"><button class="remove-slot" onclick="event.stopPropagation(); removeFamiliarFromSlot('${key}')">✕</button>` : '<span class="slot-placeholder">+</span>'}</div>`;
+        famSlots += `<div class="team-slot" onclick="openFamiliarSelector('${key}')">${fam ? `<img src="${fam.photo}" alt="${escapeHtml(fam.name)}"><button class="remove-slot" onclick="event.stopPropagation(); removeFamiliarFromSlot('${key}')">✕</button>` : '<span class="slot-placeholder">+</span>'}</div>`;
     });
     return `<div class="section-header"><h2>${t('page_setup')}</h2></div><div class="team-setup"><div><h3>Personnages</h3><div class="team-characters">${charSlots}</div></div><div><h3>Familiers</h3><div class="team-familiers">${famSlots}</div></div></div>`;
 }
@@ -386,7 +386,7 @@ function showCharacterProfile(charId) {
     const lacName = c.lacrima || `Lacrima de ${c.name}`;
     const lacEffect = c.lacrima_effect || '-';
     openModal(`<div class="profile-modal">
-        <div class="profile-img">${c.photo ? `<img src="${c.photo)}">` : '<span>\uD83D\uDC64</span>'}</div>
+        <div class="profile-img">${c.photo ? `<img src="${c.photo}">` : '<span>👤</span>'}</div>
         <div class="profile-name">${escapeHtml(c.name)}</div>
         <div class="profile-attr">
             <span class="attr-badge ${attrClass}">${attributeEmoji(c.attribute)} ${escapeHtml(translateAttribute(c.attribute))}</span>
@@ -409,24 +409,24 @@ function showLacrimaInfo(charId) {
     if (!c) return;
     const lacName = c.lacrima || `Lacrima de ${c.name}`;
     const lacEffect = c.lacrima_effect || '-';
-    openModal(`<div class="profile-modal"><div style="font-size:3rem;">💎</div><div class="profile-name">${parseColorTags(escapeHtml(lacName))}</div><p style="color:var(--text-muted);">${escapeHtml(c.name)}</p><div class="profile-details"><div class="detail-row"><span class="detail-label">✨ ${t('lacrima_effect_label')}</span><span class="detail-value">${parseColorTags(escapeHtml(lacEffect))}</span></div></div><button class="btn btn-cancel" onclick="closeModal()">${t('btn_close')}</button></div>`);
+    openModal(`<div class="profile-modal"><div style="font-size:3rem;">💎</div><div class="profile-name">${parseColorTags(escapeHtml(lacName))}</div><p style="color:var(--text-muted);">${escapeHtml(lacEffect)}</p><button class="btn btn-cancel" onclick="closeModal()">${t('btn_close')}</button></div>`);
 }
 function showFamiliarInfo(famId) {
     const f = familiers.find(f => f.id === famId);
     if (!f) return;
     const catClass = getCategoryClass(f.category);
     const rarityClass = getRarityClass(f.rarity);
-    openModal(`<div class="profile-modal"><div class="profile-img">${f.photo ? `<img src="${f.photo)}">` : '<span>\uD83D\uDC3E</span>'}</div><div class="profile-name">${escapeHtml(f.name)}</div><div class="profile-attr"><span class="category-badge ${catClass}">${categoryEmoji(f.category)} ${t('category_'+f.category)}</span><span class="rarity-badge-top ${rarityClass}-top" style="position:static;width:auto;height:auto;border-radius:20px;padding:3px 10px;">${escapeHtml(f.rarity)}</span></div><div class="profile-details"><div class="detail-row"><span class="detail-label">✨ ${t('label_effect')}</span><span class="detail-value">${parseColorTags(escapeHtml(f.effect))}</span></div></div><button class="btn btn-cancel" onclick="closeModal()">${t('btn_close')}</button></div>`);
+    openModal(`<div class="profile-modal"><div class="profile-img">${f.photo ? `<img src="${f.photo}">` : '<span>🐾</span>'}</div><div class="profile-name">${escapeHtml(f.name)}</div><div class="profile-attr"><span class="category-badge ${catClass}">${categoryEmoji(f.category)} ${t('category_'+f.category)}</span><span class="rarity-badge-top ${rarityClass}-top" style="position:static;width:auto;height:auto;border-radius:20px;padding:3px 10px;">${escapeHtml(f.rarity)}</span></div><div class="profile-details"><div class="detail-row"><span class="detail-label">${t('label_effect')}</span><span class="detail-value">${escapeHtml(f.effect||'-')}</span></div></div><button class="btn btn-cancel" onclick="closeModal()">${t('btn_close')}</button></div>`);
 }
 
 // Sélection d'équipe
 function openCharacterSelector(slotIndex) {
-    const list = characters.map(c => `<div class="char-card" style="margin:5px;padding:10px;cursor:pointer;" onclick="assignCharacterToSlot(${slotIndex},'${c.id}')"><div class="card-img" style="height:80px;">${c.photo?`<img src="${c.photo)}">`:'\uD83D\uDC64'}</div><div class="card-name">${escapeHtml(c.name)}</div></div>`).join('');
+    const list = characters.map(c => `<div class="char-card" style="margin:5px;padding:10px;cursor:pointer;" onclick="assignCharacterToSlot(${slotIndex},'${c.id}')"><div class="card-img" style="height:80px;font-size:2rem;">${c.photo ? `<img src="${c.photo}" alt="${escapeHtml(c.name)}">` : '👤'}</div><div style="text-align:center;font-size:0.8rem;margin-top:5px;">${escapeHtml(c.name)}</div></div>`).join('');
     openModal(`<h3>${t('select_character')}</h3><div style="max-height:300px;overflow-y:auto;display:flex;flex-wrap:wrap;">${list}</div>`);
 }
 function openFamiliarSelector(categoryKey) {
     const fams = familiers.filter(f => f.category === categoryKey);
-    const list = fams.map(f => `<div class="char-card" style="margin:5px;padding:10px;cursor:pointer;" onclick="assignFamiliarToSlot('${categoryKey}','${f.id}')"><div class="card-img" style="height:80px;">${f.photo?`<img src="${f.photo)}">`:'\uD83D\uDC3E'}</div><div class="card-name">${escapeHtml(f.name)}</div></div>`).join('');
+    const list = fams.map(f => `<div class="char-card" style="margin:5px;padding:10px;cursor:pointer;" onclick="assignFamiliarToSlot('${categoryKey}','${f.id}')"><div class="card-img" style="height:80px;font-size:2rem;">${f.photo ? `<img src="${f.photo}" alt="${escapeHtml(f.name)}">` : '🐾'}</div><div style="text-align:center;font-size:0.8rem;margin-top:5px;">${escapeHtml(f.name)}</div></div>`).join('');
     openModal(`<h3>${t('select_familiar')} (${t('category_'+categoryKey)})</h3><div style="max-height:300px;overflow-y:auto;display:flex;flex-wrap:wrap;">${list}</div>`);
 }
 function assignCharacterToSlot(index, charId) { team.characters[index] = charId; saveTeam(); closeModal(); renderPage(); }
