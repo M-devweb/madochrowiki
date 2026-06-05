@@ -70,10 +70,10 @@ body {
 .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-light); font-size: 1.6rem; cursor: pointer; padding: 6px; border-radius: 6px; }
 .mobile-menu-btn:hover { background: rgba(255,255,255,0.05); }
 
-.content-area { flex: 1; padding: 28px 40px 40px; overflow-y: auto; display: flex; justify-content: center; }
+.content-area { flex: 1; padding: 28px 28px 40px; overflow-y: auto; max-width: 1400px; width: 100%; }
 
 /* Welcome */
-.welcome-section { text-align: center; padding: 60px 20px 40px; animation: fadeInUp 0.6s ease-out; width: 100%; max-width: 1400px; }
+.welcome-section { text-align: center; padding: 60px 20px 40px; animation: fadeInUp 0.6s ease-out; }
 .welcome-section h1 { font-size: 3rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; background: linear-gradient(135deg, #c4b5fd, #8b5cf6, #6d28d9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .welcome-section .subtitle { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 30px; letter-spacing: 0.5px; }
 .welcome-lang-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
@@ -102,14 +102,14 @@ body {
 .filters select:focus { border-color: var(--accent); }
 
 /* Grille de cartes */
-.char-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px; width: 100%; max-width: 1400px; margin: 0 auto; }
+.char-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px; }
 .char-card {
     background: var(--card-bg);
     border-radius: var(--radius); overflow: hidden; cursor: pointer;
     transition: all var(--transition); border: 1px solid transparent; position: relative; box-shadow: var(--shadow-card);
     display: flex; flex-direction: column;
 }
-.char-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+.char-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 12px 35px rgba(124,92,252,0.3); }
 .char-card .card-img {
     width: 100%; height: 200px; object-fit: cover; background: #1a1a30;
     display: flex; align-items: center; justify-content: center;
@@ -238,14 +238,11 @@ body {
 .profile-modal .profile-img {
     width: 100px; height: 100px; border-radius: 50%; object-fit: cover;
     margin: 0 auto 12px; border: 3px solid var(--accent);
-    box-shadow: none; background: #1a1a30;
+    box-shadow: 0 0 20px rgba(124,92,252,0.3); background: #1a1a30;
     display: flex; align-items: center; justify-content: center; font-size: 3rem; color: #444; overflow: hidden;
 }
 .profile-modal .profile-img img { width: 100%; height: 100%; border-radius: 50%; }
-.profile-modal .profile-name { 
-    font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 6px; 
-    text-align: center; width: 100%;
-}
+.profile-modal .profile-name { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
 .profile-modal .profile-attr { margin: 6px 0 12px; display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
 .profile-details { background: #111128; border-radius: var(--radius-sm); padding: 12px 14px; text-align: left; margin-top: 8px; }
 .profile-details .detail-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid var(--border); font-size: 0.8rem; }
@@ -253,8 +250,8 @@ body {
 .profile-details .detail-label { color: var(--text-muted); font-weight: 500; }
 .profile-details .detail-value { color: #fff; font-weight: 500; text-align: right; max-width: 60%; word-break: break-word; }
 
-.btn { padding: 8px 18px; border-radius: 22px; border: none; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: all var(--transition); font-family: var(--font); margin: 12px auto 0; }
-.btn-cancel { background: transparent; color: var(--text); border: 1px solid var(--border); display: block; }
+.btn { padding: 8px 18px; border-radius: 22px; border: none; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: all var(--transition); font-family: var(--font); }
+.btn-cancel { background: transparent; color: var(--text); border: 1px solid var(--border); margin-top: 12px; }
 .btn-cancel:hover { background: rgba(255,255,255,0.05); border-color: #555; }
 
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
