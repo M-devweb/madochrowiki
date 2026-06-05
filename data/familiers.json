@@ -1,0 +1,26 @@
+[
+  {
+    "id": "fam_1",
+    "name": "Ignis",
+    "category": "extalia",
+    "rarity": "UR",
+    "photo": "",
+    "effect": "Augmente l'attaque de 20%"
+  },
+  {
+    "id": "fam_2",
+    "name": "Sylph",
+    "category": "celestial_spirit",
+    "rarity": "SR",
+    "photo": "",
+    "effect": "Soigne 10% PV par tour"
+  },
+  {
+    "id": "fam_3",
+    "name": "Drakon",
+    "category": "dragon",
+    "rarity": "UR",
+    "photo": "",
+    "effect": "Inflige Brûlure"
+  }
+]
