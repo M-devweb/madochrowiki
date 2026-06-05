@@ -947,5 +947,31 @@
     "spell3": "Not updated yet",
     "lacrima": "Wendy -Bakeneko- Lacrima",
     "lacrima_effect": ""
+  }, 
+    {
+    "id": "char_74",
+    "name": "TEST SR",
+    "attribute": "Skill",
+    "type": "Melee",
+    "rarity": "SR",
+    "photo": "data/pics/aaaa-1776014183ezail.png",
+    "spell1": "Not updated yet",
+    "spell2": "Not updated yet",
+    "spell3": "Not updated yet",
+    "lacrima": "TEST SR",
+    "lacrima_effect": ""
+  },
+    {
+    "id": "char_75",
+    "name": "TEST R",
+    "attribute": "Intelligence",
+    "type": "Ranged",
+    "rarity": "R",
+    "photo": "data/pics/aaaa-1776014182erigor.png",
+    "spell1": "Not updated yet",
+    "spell2": "Not updated yet",
+    "spell3": "Not updated yet",
+    "lacrima": "TEST R",
+    "lacrima_effect": ""
   }
 ]
