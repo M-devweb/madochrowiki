@@ -20,9 +20,15 @@ const RARITIES = ['UR', 'SR', 'R', 'N'];
 const FAMILIAR_RARITIES = ['UR', 'SR'];
 const FAMILIAR_CATEGORIES = ['extalia', 'celestial_spirit', 'dragon'];
 
+// Émojis en Unicode échappé (compatibilité GitHub Pages)
 function attributeEmoji(attr) {
-    const map = { brave: '🔴', mind: '🟡', skill: '🟢', intelligence: '🔵' };
-    return map[attr] || '⚪';
+    const map = {
+        brave: '\uD83D\uDD34',        // 🔴
+        mind: '\uD83D\uDFE1',         // 🟡
+        skill: '\uD83D\uDFE2',        // 🟢
+        intelligence: '\uD83D\uDD35'  // 🔵
+    };
+    return map[attr] || '\u26AA';     // ⚪
 }
 function getAttrClass(attr) {
     const map = { brave: 'attr-brave', mind: 'attr-mind', skill: 'attr-skill', intelligence: 'attr-intelligence' };
@@ -30,18 +36,28 @@ function getAttrClass(attr) {
 }
 function typeEmoji(type) {
     const t = (type || '').toLowerCase();
-    const map = { melee: '👊', ranged: '🏹', defense: '🛡️', heal: '❤️', disrup: '🪄' };
+    const map = {
+        melee: '\uD83D\uDC4A',            // 👊
+        ranged: '\uD83C\uDFF9',           // 🏹
+        defense: '\uD83D\uDEE1\uFE0F',    // 🛡️
+        heal: '\u2764\uFE0F',             // ❤️
+        disrup: '\uD83E\uDE84'            // 🪄
+    };
     return map[t] || '';
 }
 function getTypeClass(type) { return 'type-' + (type || 'melee').toLowerCase(); }
 function categoryEmoji(cat) {
-    const map = { extalia: '🐱', celestial_spirit: '🔮', dragon: '🐉' };
+    const map = {
+        extalia: '\uD83D\uDC31',           // 🐱
+        celestial_spirit: '\uD83D\uDD2E',  // 🔮
+        dragon: '\uD83D\uDC09'             // 🐉
+    };
     return map[cat] || '';
 }
 function getCategoryClass(cat) { return 'category-' + cat; }
 function getRarityClass(rarity) { return 'rarity-' + (rarity || 'N'); }
 
-// Traductions
+// Traductions (inchangées mais complètes)
 const translations = {
     fr: {
         nav_home: 'Accueil', nav_characters: 'Tous les personnages',
@@ -154,7 +170,6 @@ const translations = {
 function t(key) { return (translations[currentLang] && translations[currentLang][key]) || key; }
 function translateAttribute(attrKey) { return t('attr_' + (attrKey || '').toLowerCase()) || attrKey; }
 
-// Normalisation insensible à la casse
 function normalizeCharacter(c) {
     return {
         ...c,
@@ -286,10 +301,10 @@ function renderCharactersPage() {
     filtered.forEach(c => {
         const attrClass = getAttrClass(c.attribute);
         const typeClass = getTypeClass(c.type);
-        const rarityClass = getRarityClass(c.rarity); // ex: rarity-UR
+        const rarityClass = getRarityClass(c.rarity);
         cards += `<div class="char-card" onclick="showCharacterProfile('${c.id}')">
             <div class="card-img">
-                ${c.photo ? `<img src="${escapeHtml(c.photo)}" alt="${escapeHtml(c.name)}">` : '<span class="placeholder-icon">👤</span>'}
+                ${c.photo ? `<img src="${escapeHtml(c.photo)}" alt="${escapeHtml(c.name)}">` : '<span class="placeholder-icon">\uD83D\uDC64</span>'}
                 <span class="rarity-badge-top ${rarityClass}-top">${escapeHtml(c.rarity)}</span>
             </div>
             <div class="card-body">
@@ -309,7 +324,7 @@ function renderLacrimasPage() {
     let cards = '';
     characters.forEach(c => {
         const lacName = c.lacrima || `Lacrima de ${c.name}`;
-        cards += `<div class="char-card" onclick="showLacrimaInfo('${c.id}')"><div class="card-img" style="background:#1a1a35;"><span style="font-size:4rem;">💎</span></div><div class="card-body"><div class="card-name">${parseColorTags(escapeHtml(lacName))}</div><div class="card-attr"><span class="attr-badge attr-default">${escapeHtml(c.name)}</span></div></div></div>`;
+        cards += `<div class="char-card" onclick="showLacrimaInfo('${c.id}')"><div class="card-img" style="background:#1a1a35;"><span style="font-size:4rem;">\uD83D\uDC8E</span></div><div class="card-body"><div class="card-name">${parseColorTags(escapeHtml(lacName))}</div><div class="card-attr"><span class="attr-badge attr-default">${escapeHtml(c.name)}</span></div></div></div>`;
     });
     return `<div class="section-header"><h2>${t('page_lacrimas')}</h2><span class="char-count">${characters.length} ${t('lac_count')}</span></div><div class="char-grid">${cards}</div>`;
 }
@@ -323,7 +338,7 @@ function renderFamiliersPage() {
         const rarityClass = getRarityClass(f.rarity);
         cards += `<div class="char-card familiar-card" onclick="showFamiliarInfo('${f.id}')">
             <div class="card-img">
-                ${f.photo ? `<img src="${escapeHtml(f.photo)}" alt="${escapeHtml(f.name)}">` : '<span class="placeholder-icon">🐾</span>'}
+                ${f.photo ? `<img src="${escapeHtml(f.photo)}" alt="${escapeHtml(f.name)}">` : '<span class="placeholder-icon">\uD83D\uDC3E</span>'}
                 <span class="rarity-badge-top ${rarityClass}-top">${escapeHtml(f.rarity)}</span>
             </div>
             <div class="card-body">
@@ -371,7 +386,7 @@ function showCharacterProfile(charId) {
     const lacName = c.lacrima || `Lacrima de ${c.name}`;
     const lacEffect = c.lacrima_effect || '-';
     openModal(`<div class="profile-modal">
-        <div class="profile-img">${c.photo ? `<img src="${escapeHtml(c.photo)}">` : '<span>👤</span>'}</div>
+        <div class="profile-img">${c.photo ? `<img src="${escapeHtml(c.photo)}">` : '<span>\uD83D\uDC64</span>'}</div>
         <div class="profile-name">${escapeHtml(c.name)}</div>
         <div class="profile-attr">
             <span class="attr-badge ${attrClass}">${attributeEmoji(c.attribute)} ${escapeHtml(translateAttribute(c.attribute))}</span>
@@ -401,17 +416,17 @@ function showFamiliarInfo(famId) {
     if (!f) return;
     const catClass = getCategoryClass(f.category);
     const rarityClass = getRarityClass(f.rarity);
-    openModal(`<div class="profile-modal"><div class="profile-img">${f.photo ? `<img src="${escapeHtml(f.photo)}">` : '<span>🐾</span>'}</div><div class="profile-name">${escapeHtml(f.name)}</div><div class="profile-attr"><span class="category-badge ${catClass}">${categoryEmoji(f.category)} ${t('category_'+f.category)}</span><span class="rarity-badge-top ${rarityClass}-top" style="position:static;width:auto;height:auto;border-radius:20px;padding:3px 10px;">${escapeHtml(f.rarity)}</span></div><div class="profile-details"><div class="detail-row"><span class="detail-label">✨ ${t('label_effect')}</span><span class="detail-value">${parseColorTags(escapeHtml(f.effect))}</span></div></div><button class="btn btn-cancel" onclick="closeModal()">${t('btn_close')}</button></div>`);
+    openModal(`<div class="profile-modal"><div class="profile-img">${f.photo ? `<img src="${escapeHtml(f.photo)}">` : '<span>\uD83D\uDC3E</span>'}</div><div class="profile-name">${escapeHtml(f.name)}</div><div class="profile-attr"><span class="category-badge ${catClass}">${categoryEmoji(f.category)} ${t('category_'+f.category)}</span><span class="rarity-badge-top ${rarityClass}-top" style="position:static;width:auto;height:auto;border-radius:20px;padding:3px 10px;">${escapeHtml(f.rarity)}</span></div><div class="profile-details"><div class="detail-row"><span class="detail-label">✨ ${t('label_effect')}</span><span class="detail-value">${parseColorTags(escapeHtml(f.effect))}</span></div></div><button class="btn btn-cancel" onclick="closeModal()">${t('btn_close')}</button></div>`);
 }
 
 // Sélection d'équipe
 function openCharacterSelector(slotIndex) {
-    const list = characters.map(c => `<div class="char-card" style="margin:5px;padding:10px;cursor:pointer;" onclick="assignCharacterToSlot(${slotIndex},'${c.id}')"><div class="card-img" style="height:80px;">${c.photo?`<img src="${escapeHtml(c.photo)}">`:'👤'}</div><div class="card-name">${escapeHtml(c.name)}</div></div>`).join('');
+    const list = characters.map(c => `<div class="char-card" style="margin:5px;padding:10px;cursor:pointer;" onclick="assignCharacterToSlot(${slotIndex},'${c.id}')"><div class="card-img" style="height:80px;">${c.photo?`<img src="${escapeHtml(c.photo)}">`:'\uD83D\uDC64'}</div><div class="card-name">${escapeHtml(c.name)}</div></div>`).join('');
     openModal(`<h3>${t('select_character')}</h3><div style="max-height:300px;overflow-y:auto;display:flex;flex-wrap:wrap;">${list}</div>`);
 }
 function openFamiliarSelector(categoryKey) {
     const fams = familiers.filter(f => f.category === categoryKey);
-    const list = fams.map(f => `<div class="char-card" style="margin:5px;padding:10px;cursor:pointer;" onclick="assignFamiliarToSlot('${categoryKey}','${f.id}')"><div class="card-img" style="height:80px;">${f.photo?`<img src="${escapeHtml(f.photo)}">`:'🐾'}</div><div class="card-name">${escapeHtml(f.name)}</div></div>`).join('');
+    const list = fams.map(f => `<div class="char-card" style="margin:5px;padding:10px;cursor:pointer;" onclick="assignFamiliarToSlot('${categoryKey}','${f.id}')"><div class="card-img" style="height:80px;">${f.photo?`<img src="${escapeHtml(f.photo)}">`:'\uD83D\uDC3E'}</div><div class="card-name">${escapeHtml(f.name)}</div></div>`).join('');
     openModal(`<h3>${t('select_familiar')} (${t('category_'+categoryKey)})</h3><div style="max-height:300px;overflow-y:auto;display:flex;flex-wrap:wrap;">${list}</div>`);
 }
 function assignCharacterToSlot(index, charId) { team.characters[index] = charId; saveTeam(); closeModal(); renderPage(); }
